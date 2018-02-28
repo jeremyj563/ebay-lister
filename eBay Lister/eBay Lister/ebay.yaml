@@ -1,0 +1,34 @@
+﻿# eBay SDK Defaults
+
+name: ebay_api_config
+
+# Trading API Sandbox - https://www.x.com/developers/ebay/products/trading-api
+api.sandbox.ebay.com:
+compatability: 719
+appid: JeremyJo-moderncl-SBX-b45f64428-ac6e1ddb
+certid: SBX-45f644288cb5-4fdc-46bf-8c71-d16b
+devid: 44b93fb2-6fd3-46ac-aa7b-d69a8b26736f
+token: AgAAAA**AQAAAA**aAAAAA**K6XNWQ**nY+sHZ2PrBmdj6wVnY+sEZ2PrA2dj6wFk4GnCZaDoA2dj6x9nY+seQ**8AYEAA**AAMAAA**dwJC1Roqpb4dJgPgpcn6RJawQ+sPvj7LL+oEYjAuWtBLZapSGpUKAcdex7ixh1XQEHOtbJzP/PXZYZSbqTOXsbA3H7VdbGQBMuO8EZaBgi5HD0SdR8Xl9LqF+Rb0Y5DRBem3kj45eryXFA2lOtsIJhiiUXYiqUMr1WUdfxOLQIgTE5y8TnSdIEiY+6sgnmYh95a+lyGeEFq5SfSy/rK175PdAByg0QuxsQGi0QVn2Lr2DaNiyiorN+2ayPcqpEgYZfnpj+3WUVeqzeKzSTr8sRcneJGeSKJy1V7HUAuKh9BIBJ/uv9EfF/0k8qA7hofDgcy4yY24a8s2GBmFMJ+h8fzkao3Kik4CSJFgTwCzHDFokrUQBJ7jqkOLlaQttFdUuCeliqj7XXYagQwLZFg9iUNaoKYaIK9y1nxGcHkaBVpuWkwu3XBgHzuOojVUcuLuan6C/gboVeFb8hVJS2RbiMvALrCZhTMxDNe+uU8ZKLxhyse7SnVIycIvnTTcHwcH893A2eNbXN/B3uPhE11NaSUXtQ9AiOX2EgQD8z29KNToZt+qwInZGcBcUJmbf4Cwv4QqFQebNHZ4ULcVI1akpx39Aa2g93/ApvVvwLFsA9ChAFbwl/vb7GRwaMl/2aZFgpqeGPSDaS2O4m+XwFcf+Tnje0yADDd7aCbxMmivsm5RTYAZrWCQZtlDOqxVbuz0ELkAu8BPxw6g8LSyS/hSTb2+n7zRckIUIDoBYFZc1/8gQMgXxWYCl6zaDoFksadD
+
+# Trading API - https://www.x.com/developers/ebay/products/trading-api
+api.ebay.com:
+version: 719
+appid: JeremyJo-moderncl-PRD-545f6444c-c31bfe23
+certid: PRD-45f6444c1c39-68a0-4f7c-b699-70de
+devid: 44b93fb2-6fd3-46ac-aa7b-d69a8b26736f
+token: AgAAAA**AQAAAA**aAAAAA**mqPNWQ**nY+sHZ2PrBmdj6wVnY+sEZ2PrA2dj6AFkYqjDpKEowmdj6x9nY+seQ**PIgDAA**AAMAAA**zt+0mG0kQZAk3iLwMY4LOvkKfJqX3KaitUDSNaiPz0o+23vlGXpAcQ9VsdY4u+6JPUz+cBqfeDC88IKm6cFF/7FrFavFvF4z/eD3ds/hRaGRjW34927U4dro1ihh+e/H9b0X6sVBxIcG4VbDidf3FeypGEqutRrxHi1n1TbaRFA4Jhg3yjJrhreGIVf6Sy4xV+dve4SUQVE6CmchSBPwbdvivEVaxsBWB5RXb0lMZvGC7IIkBFi3sxoWCnh21MLeP3WDxUE1AjIabbqYsjMXmIZvqUX/nwXcJb8GU08VOWcWaHxKVB56FsPMjJtJtuydTEArwqibOuSSNs1MQV2GnI9PMARFVwl5R6O+a8A3DK8/XwpaYhMa/+LxQSwExP0mlWU7VGfBQNjAMbg5ldl9oeT+wk9RDg6or7OjOTuAXMJU2pn2Ay9fdG+poBPw/jmDpq6JL97e1YwuWFugB0YI6HOVvEBIJtzfjhGPzXoTvxLDLdwbx6GdjisI9r7k0sANtUdsEnnJ2BNi5uKcrOeLKe6o7t7F46DuAQIrKUM4uIQh+zT2M0bS4XYoTil1M41KbG6ARrMlpkyKbkpkqHcERhARUSrK75OOjJadGQa2i4egWM3D598INiaLIZaMwt6ure+IIPdFH1zAzybIEf/zk5u6W23YHfOJIRu3LCDLLfwRNph1XknIPFE+U634MrsfhzEFSsDwEaO7XNWkd/FLQgH7MTZzAbxMtraC7S//sEDRZrPeGBpOsIee3Gd1oD8B
+
+# Finding API - https://www.x.com/developers/ebay/products/finding-api
+svcs.ebay.com:
+appid: JeremyJo-moderncl-PRD-545f6444c-c31bfe23
+version: 1.0.0
+
+# Shopping API - https://www.x.com/developers/ebay/products/shopping-api
+open.api.ebay.com:
+appid: JeremyJo-moderncl-PRD-545f6444c-c31bfe23
+version: 671
+
+# Optional affiliate tracking
+# http://developer.ebay.com/DevZone/shopping/docs/Concepts/ShoppingAPI_FormatOverview.html#StandardURLParameters
+#trackingid: ENTER_YOUR_TRACKINGID_HERE
+#trackingpartnercode: ENTER_YOUR_PARTNERCODE_HERE
