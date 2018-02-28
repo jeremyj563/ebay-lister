@@ -8,7 +8,7 @@ using eBay.Service.Call;
 using eBay.Service.Core.Sdk;
 using eBay.Service.Core.Soap;
 
-namespace WebApplication4
+namespace eBayLister
 {
     public partial class Default : System.Web.UI.Page
     {

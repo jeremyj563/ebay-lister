@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WebApplication4 {
+namespace eBayLister {
     
     
     public partial class Default {
