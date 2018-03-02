@@ -17,15 +17,12 @@ namespace eBayLister
 
             //Instantiate and set properties in ApiContext
             ApiContext apiContext = GetApiContext();
-            Label1.Text = string.Format("Instantiating ApiContext object");
 
             //Instantiate the call wrapper class
             GeteBayOfficialTimeCall apiCall = new GeteBayOfficialTimeCall(apiContext);
-            Label1.Text = string.Format("Instantiating GeteBayOfficialTimeCall object");
 
             //Send the call to eBay and get the results
             DateTime officialTime = apiCall.GeteBayOfficialTime();
-            Label1.Text = string.Format("Sending call to eBay");
 
             //Handle the result returned
             Label1.Text = string.Format("eBay official Time: {0}", officialTime);
