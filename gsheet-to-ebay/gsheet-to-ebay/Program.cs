@@ -17,45 +17,142 @@ namespace gsheet_to_ebay
     public class Program
     {
 
-        public static void Main(string[] args)
+                static void Main(string[] args)
         {
-            //Instantiate and set properties in ApiContext
-            ApiContext apiContext = GetApiContext();
+            var context = NewApiContext(Settings.Default.eBayURI, Settings.Default.eBayToken);
+            //var apiCall = new GeteBayOfficialTimeCall(context);
+            var apiCall = new SetStoreCall(context);
 
-            //Instantiate the call wrapper class
-            GeteBayOfficialTimeCall apiCall = new GeteBayOfficialTimeCall(apiContext);
+            //var time = apiCall.GeteBayOfficialTime();
+            //var options = apiCall.GetStoreOptions();
+            var store = new StoreType()
+            {
+                Description = "Test Store",
+                Name = "Test Store",
+                SubscriptionLevel = StoreSubscriptionLevelCodeType.Basic,
+                Theme = new StoreThemeType() { ThemeID = 1 }
+            };
 
-            //Send the call to eBay and get the results
-            DateTime officialTime = apiCall.GeteBayOfficialTime();
+            apiCall.SetStore(store);
 
-            //Handle the result returned
-            Console.WriteLine("eBay official Time: " + officialTime);
+            var addCall = new AddFixedPriceItemCall(context);
 
-            //BuildWebHost(args).Run();
+
+            addCall.AddFixedPriceItem(item);
+
+            //Console.WriteLine(time);
+            //Console.WriteLine(options);
+
+            Console.ReadKey();
         }
 
-        // Instantiating and setting ApiContext
-        private static ApiContext GetApiContext()
+        private static ItemType NewItem(
+            string title, 
+            string description, 
+            string category, 
+            int condition, 
+            string duration, 
+            string email, 
+            string photo1URL, 
+            string photo2URL, 
+            string zipCode, 
+            string shipService, 
+            ListingTypeCodeType type = ListingTypeCodeType.FixedPriceItem)
         {
-            ApiContext apiContext = new ApiContext();
+            string htmlDescription = 
+                string.Format(@"<![CDATA[<table cellspacing ='28' cellpadding='0' width='100%'>
+                                           <tbody>
+                                             <tr>
+                                               <td valign='top'>
+                                               <hr size='6'>
+                                               <br>
+                                               <div align='left'>
+                                                 <font size='4'><b>I T E M&nbsp;&nbsp;&nbsp; D E S C R I P T I O N:</b></font>
+                                                 <br>
+                                               </div>
+                                               <font size='3'><br>%s<br><br>
+                                                 <b>All of my items are stored in a clean and smoke free home.</b>
+                                                 <br><br><br><hr><br><br>
+                                                 <i><b>NOW OFFERING COMBINED SHIPPING!</b></i>
+                                                 <br><br>
+                                                 <i>Add items to your cart to see the HUGE savings! Shipping charges will be calculated automatically based on weight.</i>
+                                                 <br><br><br><hr size='6'>
+                                               </font>
+                                             </td>
+                                           </tr>
+                                         </tbody>
+                                       </table>]]>{0}", description);
 
-            //supply Api Server Url
-            apiContext.SoapApiServerUrl = "https://api.sandbox.ebay.com/wsapi";
+            var item = new ItemType
+            {
+                Title = title,
+                Description = htmlDescription,
+                PrimaryCategory = new CategoryType { CategoryID = category },
+                StartPrice = new AmountType() { Value = 0 },
+                CategoryMappingAllowed = true,
+                Country = CountryCodeType.US,
+                ConditionID = condition,
+                Currency = CurrencyCodeType.USD,
+                DispatchTimeMax = 3,
+                ListingDuration = duration,
+                ListingType = type,
+                PaymentMethods = { BuyerPaymentMethodCodeType.PayPal },
+                PayPalEmailAddress = email,
+                PictureDetails = new PictureDetailsType() { PictureURL = { photo1URL, photo2URL } },
+                PostalCode = zipCode,
+                Quantity = 0,
+                ReturnPolicy = new ReturnPolicyType()
+                {
+                    ReturnsAcceptedOption = "ReturnsAccepted",
+                    RefundOption = "MoneyBack",
+                    ReturnsWithinOption = "Days_30",
+                    Description = "If you are not satisfied, return the book for refund.",
+                    ShippingCostPaidByOption = "Buyer"
+                },
+                SellerProfiles = new SellerProfilesType()
+                {
+                    SellerPaymentProfile = new SellerPaymentProfileType() { PaymentProfileName = "PayPal:Immediate pay" },
+                    SellerReturnProfile = new SellerReturnProfileType() { ReturnProfileName = "30 Day Return Policy" },
+                    SellerShippingProfile = new SellerShippingProfileType() { ShippingProfileName = "" }
+                },
+                ShippingDetails = new ShippingDetailsType()
+                {
+                    ShippingType = ShippingTypeCodeType.Calculated,
+                    ShippingServiceOptions = new ShippingServiceOptionsTypeCollection()
+                    {
+                        new ShippingServiceOptionsType() { ShippingServicePriority = 1 },
+                        new ShippingServiceOptionsType() { ShippingService = "USPSMedia" }
+                    },
+                    CalculatedShippingRate = new CalculatedShippingRateType()
+                    {
+                        OriginatingPostalCode = zipCode,
+                        PackagingHandlingCosts = new AmountType() { Value = 0 }
+                    }
+                },
+                ShippingPackageDetails = new ShipPackageDetailsType()
+                {
+                    ShippingPackage = ShippingPackageCodeType.PackageThickEnvelope,
+                    WeightMajor = new MeasureType() { Value = 0 },
+                    WeightMinor = new MeasureType() { Value = 0 }
+                },
+                Site = SiteCodeType.US
+            };
 
-            //Supply user token
-            ApiCredential apiCredential = new ApiCredential();
+            return item;
+        }
 
-            //Just a partial token is shown for display purposes
-            apiCredential.eBayToken = "AgAAAA**AQAAAA**aAAAAA**mqPNWQ**nY+sHZ2PrBmdj6wVnY+sEZ2PrA2dj6AFkYqjDpKEowmdj6x9nY+seQ**PIgDAA**AAMAAA**zt+0mG0kQZAk3iLwMY4LOvkKfJqX3KaitUDSNaiPz0o+23vlGXpAcQ9VsdY4u+6JPUz+cBqfeDC88IKm6cFF/7FrFavFvF4z/eD3ds/hRaGRjW34927U4dro1ihh+e/H9b0X6sVBxIcG4VbDidf3FeypGEqutRrxHi1n1TbaRFA4Jhg3yjJrhreGIVf6Sy4xV+dve4SUQVE6CmchSBPwbdvivEVaxsBWB5RXb0lMZvGC7IIkBFi3sxoWCnh21MLeP3WDxUE1AjIabbqYsjMXmIZvqUX/nwXcJb8GU08VOWcWaHxKVB56FsPMjJtJtuydTEArwqibOuSSNs1MQV2GnI9PMARFVwl5R6O+a8A3DK8/XwpaYhMa/+LxQSwExP0mlWU7VGfBQNjAMbg5ldl9oeT+wk9RDg6or7OjOTuAXMJU2pn2Ay9fdG+poBPw/jmDpq6JL97e1YwuWFugB0YI6HOVvEBIJtzfjhGPzXoTvxLDLdwbx6GdjisI9r7k0sANtUdsEnnJ2BNi5uKcrOeLKe6o7t7F46DuAQIrKUM4uIQh+zT2M0bS4XYoTil1M41KbG6ARrMlpkyKbkpkqHcERhARUSrK75OOjJadGQa2i4egWM3D598INiaLIZaMwt6ure+IIPdFH1zAzybIEf/zk5u6W23YHfOJIRu3LCDLLfwRNph1XknIPFE+U634MrsfhzEFSsDwEaO7XNWkd/FLQgH7MTZzAbxMtraC7S//sEDRZrPeGBpOsIee3Gd1oD8B";
-            apiContext.ApiCredential = apiCredential;
-
-            //Specify site: here we use US site
-            apiContext.Site = SiteCodeType.US;
+        private static ApiContext NewApiContext(string apiURI, string token, SiteCodeType site = SiteCodeType.US)
+        {
+            var apiContext = new ApiContext()
+            {
+                SoapApiServerUrl = apiURI,
+                ApiCredential = new ApiCredential(token),
+                Site = site
+            };
 
             return apiContext;
-
-        } //GetApiContext
-
+        }
+        
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
